@@ -1,0 +1,19 @@
+[versions]
+kotlin = "2.1.21"
+spring-boot = "3.5.0"
+spring-dep-mgmt = "1.1.7"
+java = "21"
+
+[libraries]
+spring-boot-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-webflux = { module = "org.springframework:spring-webflux" }
+lombok = { module = "org.projectlombok:lombok" }
+spring-boot-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+reactor-test = { module = "io.projectreactor:reactor-test" }
+junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dep-mgmt" }

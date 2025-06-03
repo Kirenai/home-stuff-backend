@@ -1,9 +1,9 @@
 plugins {
     `java-library`
-    kotlin("jvm") version "2.1.21"
-    kotlin("plugin.spring") version "2.1.21"
-    id("org.springframework.boot") version "3.5.0"
-    id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 group = "me.kire.re"
@@ -11,7 +11,7 @@ version = "0.1.0-SNAPSHOT"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(libs.versions.java.get().toInt())
     }
 }
 
@@ -26,13 +26,13 @@ repositories {
 }
 
 dependencies {
-    api("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework:spring-webflux")
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.projectreactor:reactor-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    api(libs.spring.boot.validation)
+    implementation(libs.spring.webflux)
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+    testImplementation(libs.spring.boot.test)
+    testImplementation(libs.reactor.test)
+    testRuntimeOnly(libs.junit.launcher)
 }
 
 kotlin {
