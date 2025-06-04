@@ -1,3 +1,3 @@
 rootProject.name = "home-stuff-backend"
 
-include( "validation")
+include( "validation", "nourishment")
