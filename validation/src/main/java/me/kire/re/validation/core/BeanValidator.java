@@ -2,8 +2,8 @@ package me.kire.re.validation.core;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.kire.re.dto.ErrorResponse;
-import me.kire.re.exception.ValidatorException;
+import me.kire.re.exceptions.dto.validator.ErrorResponse;
+import me.kire.re.exceptions.model.validator.ValidatorException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;

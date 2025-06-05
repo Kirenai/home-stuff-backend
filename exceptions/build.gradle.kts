@@ -1,7 +1,7 @@
 plugins {
-    java
-    kotlin("jvm") version "2.1.21"
-    kotlin("plugin.spring") version "2.1.21"
+    `java-library`
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dependency.management)
 }
@@ -11,7 +11,7 @@ version = "0.1.0-SNAPSHOT"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(libs.versions.java.get().toInt())
     }
 }
 
@@ -25,27 +25,15 @@ repositories {
     mavenCentral()
 }
 
-extra["springCloudVersion"] = "2025.0.0"
-
 dependencies {
-    implementation(project(":validation"))
-    implementation(project(":exceptions"))
-    implementation(libs.spring.boot.mongodb.reactive)
+    api(libs.jackson.annotations)
     implementation(libs.spring.boot.webflux)
-    implementation(libs.spring.boot.eureka.client)
-    implementation(libs.mapstruct)
+    implementation(libs.spring.webflux)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
-    annotationProcessor(libs.mapstruct.processor)
     testImplementation(libs.spring.boot.test)
     testImplementation(libs.reactor.test)
     testRuntimeOnly(libs.junit.launcher)
-}
-
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-    }
 }
 
 kotlin {
@@ -56,4 +44,12 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
+}
+
+tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
 }

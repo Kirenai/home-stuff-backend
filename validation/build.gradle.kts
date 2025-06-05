@@ -27,6 +27,7 @@ repositories {
 
 dependencies {
     api(libs.spring.boot.validation)
+    implementation(project(":exceptions"))
     implementation(libs.spring.webflux)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)

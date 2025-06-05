@@ -56,6 +56,7 @@ public class NourishmentService {
 //                    return this.createNourishmentPort.createNourishment(nourishment);
 //                });
         nourishment.setUserId(userId);
+        nourishment.setCategoryId(categoryId);
         return this.createNourishmentPort.createNourishment(nourishment);
     }
 
