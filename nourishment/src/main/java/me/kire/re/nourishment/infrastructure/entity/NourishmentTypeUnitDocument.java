@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NourishmentTypeUnitDocument extends NourishmentTypeDocument {
+public final class NourishmentTypeUnitDocument extends NourishmentTypeDocument {
     private Integer unit;
 }
