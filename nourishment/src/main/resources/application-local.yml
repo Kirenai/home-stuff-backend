@@ -10,3 +10,9 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
     enabled: false
+
+mongodb:
+  connecting:
+    string: ${MONGODB_CONNECTION_STRING:mongodb://root:secret@localhost:27017}
+  database:
+    name: ${MONGODB_DATABASE_NAME:nourishment}
