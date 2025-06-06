@@ -1,5 +1,5 @@
 spring:
   application:
-    name: hs-nourishment
+    name: nourishment
   profiles:
     active: local

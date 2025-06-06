@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  storage:
+    image: openzipkin/zipkin-mysql:latest
+    container_name: mysql-home-stuff-backed
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin-home-stuff-backed
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=storage
+      # Add the baked-in username and password for the zipkin-mysql image
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+    depends_on:
+      - storage
+
+  dependencies:
+    image: openzipkin/zipkin-dependencies:latest
+    container_name: dependencies-home-stuff-backed
+    environment:
+      - STORAGE_TYPE=mysql
+      - MYSQL_HOST=storage
+      # Add the baked-in username and password for the zipkin-mysql image
+      - MYSQL_USER=zipkin
+      - MYSQL_PASS=zipkin
+      - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
+    depends_on:
+      - storage

@@ -11,6 +11,10 @@ spring-boot-mongodb-reactive = { module = "org.springframework.boot:spring-boot-
 spring-boot-eureka-client = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client" }
 spring-boot-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
 spring-webflux = { module = "org.springframework:spring-webflux" }
+spring-boot-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+micrometer-tracing-bridge-brave = { module = "io.micrometer:micrometer-tracing-bridge-brave" }
+zipkin-reporter-brave = { module = "io.zipkin.reporter2:zipkin-reporter-brave" }
+micrometer-registry-prometheus = { module = "io.micrometer:micrometer-registry-prometheus"}
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
 lombok = { module = "org.projectlombok:lombok" }
