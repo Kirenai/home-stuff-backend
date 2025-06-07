@@ -70,8 +70,22 @@ services:
     depends_on:
       - postgres-keycloak
 
+  mongodb:
+    image: 'mongo:latest'
+    container_name: 'mongodb-home-stuff-backed'
+    environment:
+      - 'MONGO_INITDB_DATABASE=nourishment'
+      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
+    ports:
+      - '27017:27017'
+    networks:
+      - 'mongodb-red'
+
 networks:
   keycloak-red:
     driver: bridge
   zipkin-red:
+    driver: bridge
+  mongodb-red:
     driver: bridge
