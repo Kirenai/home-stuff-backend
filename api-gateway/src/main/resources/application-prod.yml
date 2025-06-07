@@ -1,0 +1,12 @@
+server:
+  port: 8087
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://{KC_HOST:localhost}:{KC_PORT:9090}/realms/hs-realm/protocol/openid-connect/certs
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: https://{EUREKA_SERVER:localhost}:{EUREKA_SERVER_PORT:8761}/eureka/
