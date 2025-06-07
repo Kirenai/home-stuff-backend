@@ -4,6 +4,8 @@ services:
   storage:
     image: openzipkin/zipkin-mysql:latest
     container_name: mysql-home-stuff-backed
+    networks:
+      - zipkin-red
 
   zipkin:
     image: openzipkin/zipkin:latest
@@ -18,6 +20,8 @@ services:
       - MYSQL_PASS=zipkin
     depends_on:
       - storage
+    networks:
+      - zipkin-red
 
   dependencies:
     image: openzipkin/zipkin-dependencies:latest
@@ -31,7 +35,9 @@ services:
       - JAVA_OPTS=-verbose:gc -Xms1G -Xmx1G
     depends_on:
       - storage
-      -
+    networks:
+      - zipkin-red
+
   postgres-keycloak:
     container_name: postgres-keycloak-home-stuff-backed
     image: postgres:15-alpine3.19
@@ -66,4 +72,6 @@ services:
 
 networks:
   keycloak-red:
+    driver: bridge
+  zipkin-red:
     driver: bridge
