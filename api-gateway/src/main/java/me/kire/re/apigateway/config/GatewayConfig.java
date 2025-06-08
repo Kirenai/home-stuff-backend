@@ -1,30 +1,51 @@
 package me.kire.re.apigateway.config;
 
+import lombok.AllArgsConstructor;
+import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
+import org.springframework.cloud.gateway.route.builder.Buildable;
+import org.springframework.cloud.gateway.route.builder.PredicateSpec;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
 @Configuration
 public class GatewayConfig {
+    private final List<RouteDefinition> routes = new ArrayList<>();
+
+    public GatewayConfig() {
+        this.routes.add(new RouteDefinition("users", r -> this.routeWithRewrite(r, "/users", "/api/v0/users", "HS-USER")));
+        this.routes.add(new RouteDefinition("roles", r -> this.routeWithRewrite(r, "/roles", "/api/v0/roles", "HS-ROLE")));
+        this.routes.add(new RouteDefinition("nourishments", r -> this.routeWithRewrite(r, "/nourishments", "/products/v0/nourishments", "NOURISHMENT")));
+        this.routes.add(new RouteDefinition("consumptions", r -> this.routeWithRewrite(r, "/consumptions", "/api/v0/consumptions", "HS-CONSUMPTION")));
+        this.routes.add(new RouteDefinition("categories", r -> this.routeWithRewrite(r, "/categories", "/api/v0/categories", "HS-CATEGORY")));
+    }
+
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
-        return builder.routes()
-                .route("users", r -> r.path("/users/**")
-                        .filters(f -> f.rewritePath("/users?(?<segment>.*)", "/api/v0/users${segment}"))
-                        .uri("lb://HS-USER"))
-                .route("roles", r -> r.path("/roles/**")
-                        .filters(f -> f.rewritePath("/roles?(?<segment>.*)", "/api/v0/roles${segment}"))
-                        .uri("lb://HS-ROLE"))
-                .route("nourishments", r -> r.path("/nourishments/**")
-                        .filters(f -> f.rewritePath("/nourishments?(?<subresource>.*)", "/products/v0/nourishments${subresource}"))
-                        .uri("lb://NOURISHMENT"))
-                .route("consumptions", r -> r.path("/consumptions/**")
-                        .filters(f -> f.rewritePath("/consumptions?(?<segment>.*)", "/api/v0/consumptions${segment}"))
-                        .uri("lb://HS-CONSUMPTION"))
-                .route("categories", r -> r.path("/categories/**")
-                        .filters(f -> f.rewritePath("/categories?(?<segment>.*)", "/api/v0/categories${segment}"))
-                        .uri("lb://HS-CATEGORY"))
-                .build();
+        RouteLocatorBuilder.Builder builderRoutes = builder.routes();
+        this.routes.forEach(route -> builderRoutes.route(route.id, route.fn));
+        return builderRoutes.build();
+    }
+
+
+    private Buildable<Route> routeWithRewrite(PredicateSpec predicateSpec,
+                                              String pathPrefix,
+                                              String rewritePrefix,
+                                              String serviceId) {
+        return predicateSpec
+                .path(pathPrefix + "/**")
+                .filters(f -> f.rewritePath(pathPrefix + "?(?<segment>/?.*)", rewritePrefix + "${segment}"))
+                .uri("lb://" + serviceId);
+    }
+
+    @AllArgsConstructor
+    private static class RouteDefinition {
+        private String id;
+        private Function<PredicateSpec, Buildable<Route>> fn;
     }
 }
