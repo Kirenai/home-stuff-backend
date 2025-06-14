@@ -15,7 +15,6 @@ public record CreateNourishmentRequest(
         @NotEmpty
         @Size(min = 2, max = 35)
         String name,
-        @NotEmpty
         String imageUrl,
         String description,
         @Valid

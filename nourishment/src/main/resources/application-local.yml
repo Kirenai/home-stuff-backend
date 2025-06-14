@@ -13,21 +13,22 @@ eureka:
 
 management:
   tracing:
-    sampling:
-      probability: 1.0
-  endpoints:
-    web:
-      exposure:
-        include: prometheus
-  metrics:
-    distribution:
-      percentiles-histogram:
-        http:
-          server:
-            requests: true
+    enabled: false
+#    sampling:
+#      probability: 1.0
+#  endpoints:
+#    web:
+#      exposure:
+#        include: prometheus
+#  metrics:
+#    distribution:
+#      percentiles-histogram:
+#        http:
+#          server:
+#            requests: true
 
 mongodb:
   connecting:
-    string: ${MONGODB_CONNECTION_STRING:mongodb://root:secret@localhost:27017}
+    string: mongodb://root:secret@localhost:27017
   database:
-    name: ${MONGODB_DATABASE_NAME:nourishment}
+    name: nourishment
