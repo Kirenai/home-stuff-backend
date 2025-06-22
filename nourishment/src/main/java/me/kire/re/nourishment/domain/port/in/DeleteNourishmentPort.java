@@ -4,6 +4,6 @@ import reactor.core.publisher.Mono;
 
 public interface DeleteNourishmentPort {
 
-    Mono<Void> deleteNourishment(String nourishmentId);
+    Mono<Void> execute(String nourishmentId);
 
 }

@@ -67,7 +67,7 @@ public class NourishmentService {
 
     public Mono<Void> deleteNourishment(String nourishmentId) {
         log.info("Invoking NourishmentService.deleteNourishment method");
-        return this.deleteNourishmentPort.deleteNourishment(nourishmentId);
+        return this.deleteNourishmentPort.execute(nourishmentId);
     }
 
 }
