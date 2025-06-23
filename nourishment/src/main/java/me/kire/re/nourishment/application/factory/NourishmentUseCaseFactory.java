@@ -6,6 +6,7 @@ import me.kire.re.nourishment.application.usecases.DeleteNourishmentUseCase;
 import me.kire.re.nourishment.application.usecases.GetNourishmentByNameUseCase;
 import me.kire.re.nourishment.application.usecases.GetNourishmentUseCase;
 import me.kire.re.nourishment.application.usecases.ListNourishmentsUseCase;
+import me.kire.re.nourishment.application.usecases.PageMapper;
 import me.kire.re.nourishment.application.usecases.UpdateNourishmentUseCase;
 import me.kire.re.nourishment.domain.port.in.CreateNourishmentPort;
 import me.kire.re.nourishment.domain.port.in.DeleteNourishmentPort;
@@ -21,7 +22,7 @@ public class NourishmentUseCaseFactory {
 
     private final NourishmentRepositoryPort nourishmentRepositoryPort;
     private final NourishmentSortingRepositoryPort nourishmentSortingRepositoryPort;
-
+    private final PageMapper pageMapper;
 
     public GetNourishmentPort getNourishmentPort() {
         return new GetNourishmentUseCase(this.nourishmentRepositoryPort);
@@ -32,7 +33,7 @@ public class NourishmentUseCaseFactory {
     }
 
     public ListNourishmentsPort listNourishmentsPort() {
-        return new ListNourishmentsUseCase(this.nourishmentSortingRepositoryPort);
+        return new ListNourishmentsUseCase(this.nourishmentSortingRepositoryPort, this.pageMapper);
     }
 
     public CreateNourishmentPort createNourishmentPort() {

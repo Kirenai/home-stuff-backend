@@ -13,13 +13,14 @@ import reactor.core.publisher.Mono;
 public class ListNourishmentsUseCase implements ListNourishmentsPort {
 
     private final NourishmentSortingRepositoryPort nourishmentSortingRepositoryPort;
+    private final PageMapper pageMapper;
 
     @Override
     public Mono<Page<Nourishment>> getNourishments(Pageable pageable, String userId, Boolean isAvailable) {
         return this.nourishmentSortingRepositoryPort.findAll(pageable, userId, isAvailable)
                 .collectList()
                 .zipWith(this.nourishmentSortingRepositoryPort.count())
-                .map(tuple -> new PageImpl<>(tuple.getT1(), pageable, tuple.getT2()));
+                .map(tuple -> this.pageMapper.toPage(tuple.getT1(), pageable, tuple.getT2()));
     }
 
 }
