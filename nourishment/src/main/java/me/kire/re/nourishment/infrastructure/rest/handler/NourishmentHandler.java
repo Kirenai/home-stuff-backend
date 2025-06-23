@@ -99,7 +99,7 @@ public class NourishmentHandler {
         log.info("Invoking NourishmentHandler.delete method");
         String nourishmentId = request.pathVariable("nourishmentId");
         return this.nourishmentService.deleteNourishment(nourishmentId)
-                .then(Mono.defer(() -> ServerResponse.ok().bodyValue(Mono.empty())));
+                .then(Mono.defer(() -> ServerResponse.noContent().build()));
     }
 
 }
