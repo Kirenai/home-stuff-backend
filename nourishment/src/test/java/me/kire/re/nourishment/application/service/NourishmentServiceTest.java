@@ -134,9 +134,7 @@ class NourishmentServiceTest {
 
         StepVerifier
                 .create(publisher)
-                .assertNext(value -> {
-                    assertEquals("Updated Nourishment", value.getName());
-                })
+                .assertNext(value -> assertEquals("Updated Nourishment", value.getName()))
                 .verifyComplete();
 
         verify(this.updateNourishmentPort).updateNourishment(anyString(), any());
