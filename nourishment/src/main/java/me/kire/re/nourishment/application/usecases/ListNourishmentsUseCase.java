@@ -5,7 +5,6 @@ import me.kire.re.nourishment.domain.model.Nourishment;
 import me.kire.re.nourishment.domain.port.in.ListNourishmentsPort;
 import me.kire.re.nourishment.domain.port.out.repository.NourishmentSortingRepositoryPort;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Mono;
 
